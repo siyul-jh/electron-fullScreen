@@ -176,18 +176,21 @@
 
 .loading.active {
 	position: absolute;
-	top: 79px;
+	/* top: 79px; */
+	top: 0;
 	left: 0;
 	width: 100%;
-	height: calc(100% - 79px);
+	/* height: calc(100% - 79px); */
+	height: 100%;
 }
 .loading.active .indicator {
-	color: #ffc222;
+	color: #ffc022ee;
+	font-size: 24px;
+	font-weight: 600;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background: rgba(0, 0, 0, 0.5);
 	padding: 1rem;
 }
 
@@ -200,4 +203,9 @@
 	font-weight: 600;
 	display: inline-flex;
 	flex: 1;
+}
+
+.blur {
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
 }

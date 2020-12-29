@@ -18,6 +18,12 @@ function getControlsHeight() {
 	return 0;
 }
 function setting() {
+	let url = document.querySelector('#url');
+	let webview = document.querySelector('webview');
+	let title = document.querySelector('#title');
+	let loading = document.querySelector('.loading');
+	let indicator = document.querySelector('.indicator');
+
 	document.querySelector('#youtube').addEventListener('click', youtube); // 이벤트 연결
 	document.querySelector('#inflearn').addEventListener('click', inflearn); // 이벤트 연결
 	document.querySelector('.screen.min').addEventListener('click', win_minimize); // 이벤트 연결
@@ -30,12 +36,16 @@ function setting() {
 
 	// webview event
 	document.querySelector('webview').addEventListener('did-start-loading', () => {
-		document.querySelector('.loading').classList.add('active');
-		document.querySelector('.indicator').innerText = 'Loading...';
+		webview.classList.add('blur');
+		loading.classList.add('active');
+		indicator.innerText = 'Loading...';
 	});
 	document.querySelector('webview').addEventListener('did-stop-loading', () => {
-		document.querySelector('.loading').classList.remove('active');
-		document.querySelector('.indicator').innerText = '';
+		webview.classList.remove('blur');
+		loading.classList.remove('active');
+		indicator.innerText = '';
+		url.value = webview.src;
+		title.innerHTML = webview.getTitle();
 	});
 	document.querySelector('webview').addEventListener('did-finish-load', () => {
 		if (document.querySelector('webview').canGoForward()) {
@@ -48,11 +58,6 @@ function setting() {
 		} else {
 			document.querySelector('#prev').classList.remove('active');
 		}
-		let url = document.querySelector('#url');
-		let webview = document.querySelector('webview');
-		let title = document.querySelector('#title');
-		url.value = webview.src;
-		title.innerHTML = webview.getTitle();
 	});
 	document.querySelector('webview').addEventListener('new-window', async (e) => {
 		e.preventDefault();
@@ -60,6 +65,12 @@ function setting() {
 		if (protocol === 'http:' || protocol === 'https:') {
 			ipcRenderer.send('url', e.url);
 		}
+	});
+	document.querySelector('webview').addEventListener('enter-html-full-screen', (e) => {
+		document.querySelector('webview').classList.add('full');
+	});
+	document.querySelector('webview').addEventListener('leave-html-full-screen', (e) => {
+		document.querySelector('webview').classList.remove('full');
 	});
 }
 function youtube() {
