@@ -1,0 +1,203 @@
+/* Topbar */
+
+#controls {
+	display: inline-flex;
+	/* width: 100%; */
+	width: -webkit-fill-available;
+	padding: 5px;
+	background-color: #ffb900;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
+#indicator {
+	display: inline-flex;
+	/* width: 100%; */
+	width: -webkit-fill-available;
+	padding: 0 5px;
+	height: 36px;
+	background-color: #ffcc44;
+	border-bottom: 1px solid #553e00;
+	-webkit-user-select: none;
+	-webkit-app-region: drag;
+}
+#indicator button {
+	padding: 4px;
+	border: none;
+	background-color: transparent;
+}
+#indicator .arrow_box {
+	width: 36px;
+	margin: 0 16px;
+	position: relative;
+}
+#indicator .arrow {
+	position: absolute;
+	top: 50%;
+	width: 12px;
+	height: 12px;
+	background: transparent;
+	border-top: 2px solid rgba(0, 0, 0, 0.2);
+	border-right: 2px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 0 0 0 lightgray;
+	cursor: pointer;
+	outline: none;
+	-webkit-app-region: no-drag;
+}
+#indicator .arrow.prev {
+	left: 0;
+	transform: translate3d(0, -50%, 0) rotate(-135deg);
+}
+#indicator .arrow.next {
+	right: 0;
+	transform: translate3d(0, -50%, 0) rotate(45deg);
+}
+#indicator .arrow:before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-40%, -60%) rotate(45deg);
+	width: 200%;
+	height: 200%;
+}
+#indicator .arrow.active {
+	border-top: 2px solid #000;
+	border-right: 2px solid #000;
+}
+#indicator .url_box {
+	width: 100%;
+	align-self: center;
+}
+#indicator input {
+	width: 100%;
+	padding: 4px;
+	border: none;
+	font-weight: 500;
+	color: #000;
+	background-color: transparent;
+	-webkit-app-region: no-drag;
+}
+#indicator input:hover {
+	background-color: #ffc222;
+}
+#indicator input:focus {
+	border: none;
+	box-shadow: none;
+	outline: none;
+	background-color: #ffc222;
+}
+#controls img {
+	padding: 0px 8px;
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+}
+#controls img:hover {
+	background-color: #e5a600;
+}
+#controls img:active {
+	background-color: #ca9302;
+}
+.window_button {
+	padding: 0 16px;
+	align-self: center;
+	text-align: right;
+}
+.button-close {
+	width: 16px;
+	height: 16px;
+	position: relative;
+	color: #000;
+	border: none;
+	outline: none;
+	background: none;
+	display: inline-flex;
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+}
+.button-close:before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 0;
+	height: 1px;
+	border-left: 8px solid currentColor;
+	border-right: 8px solid currentColor;
+	-webkit-transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+	transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.button-close:after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 0;
+	height: 1px;
+	border-left: 8px solid currentColor;
+	border-right: 8px solid currentColor;
+	-webkit-transform: translate3d(-50%, -50%, 0) rotate(45deg);
+	transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.screen {
+	width: 16px;
+	height: 16px;
+	display: inline-flex;
+	padding: 0;
+	margin: 0 8px;
+	background: none;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	-webkit-app-region: no-drag;
+}
+.screen.min::before {
+	content: '';
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	border-bottom: 1px solid #000;
+}
+.screen.max::before {
+	content: '';
+	position: absolute;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #000;
+}
+.youtube {
+	background-image: url('../icons/png/youtube.png');
+	background-size: cover;
+	background-repeat: repeat;
+}
+
+.inflearn {
+	background-image: url('../icons/win/inflearn.ico');
+}
+
+.loading.active {
+	position: absolute;
+	top: 79px;
+	left: 0;
+	width: 100%;
+	height: calc(100% - 79px);
+}
+.loading.active .indicator {
+	color: #ffc222;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(0, 0, 0, 0.5);
+	padding: 1rem;
+}
+
+#title {
+	padding: 0 6px;
+	width: 100%;
+	align-self: center;
+	color: #000;
+	font-size: 0.8rem;
+	font-weight: 600;
+	display: inline-flex;
+	flex: 1;
+}

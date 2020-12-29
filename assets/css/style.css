@@ -1,0 +1,16 @@
+/* Main */
+
+body {
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+#webview {
+	position: absolute;
+	top: 79px;
+	left: 0;
+	width: 100%;
+	height: calc(100% - 79px);
+	display: inline-flex !important;
+	overflow: auto;
+}

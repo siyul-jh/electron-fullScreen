@@ -1,0 +1,36 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="assets/css/style.css" />
+		<link rel="stylesheet" href="assets/css/topbar.css" />
+		<!-- <link rel="stylesheet" href="assets/css/no-topbar.css"> -->
+		<script src="assets/js/webview.js"></script>
+		<script src="assets/js/topbar.js"></script>
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline';" />
+	</head>
+	<body>
+		<!-- Topbar -->
+		<div id="controls">
+			<img id="youtube" src="assets/icons/png/youtube.png" data-url="https://youtube.com" width="32" height="32" draggable="false" />
+			<img id="inflearn" src="assets/icons/win/inflearn.ico" data-url="https://inflearn.com" width="32" height="32" draggable="false" />
+			<label id="title"></label>
+			<div class="window_button">
+				<button type="button" class="screen min"></button>
+				<button type="button" class="screen max"></button>
+				<button type="button" class="button-close"></button>
+			</div>
+		</div>
+		<div id="indicator">
+			<div class="arrow_box">
+				<button type="button" id="prev" class="arrow prev"></button>
+				<button type="button" id="next" class="arrow next"></button>
+			</div>
+			<div class="url_box">
+				<input type="text" id="url" />
+			</div>
+		</div>
+		<webview id="webview" src="https://www.naver.com"></webview>
+		<div class="loading">
+			<div class="indicator"></div>
+		</div>
+	</body>
+</html>
