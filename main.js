@@ -1,6 +1,6 @@
 const electron = require('electron');
-const { BrowserWindow, ipcMain, webContents, app } = electron;
-
+const { BrowserWindow, ipcMain, app } = electron;
+const fetch = require('node-fetch');
 const path = require('path');
 const fs = require('fs');
 
@@ -68,7 +68,7 @@ if (!gotTheLock) {
 		if (process.platform !== 'darwin') app.quit();
 	});
 }
-function main_window() {
+async function main_window() {
 	mainWindow = new BrowserWindow({
 		width: 1024,
 		height: 768,
@@ -82,13 +82,14 @@ function main_window() {
 			enableRemoteModule: true,
 		},
 	});
+
 	mainWindow.loadURL('file://' + __dirname + '/index.html', {
 		postData: {
 			test: 'test',
 		},
 	});
-	mainWindow.on('close', (event) => {
-		mainWindow = false;
+	mainWindow.on('close', () => {
+		mainWindow = null;
 	});
 }
 function sub_window(url) {
