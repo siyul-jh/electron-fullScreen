@@ -24,13 +24,14 @@
 				<button type="button" id="prev" class="arrow prev"></button>
 				<button type="button" id="next" class="arrow next"></button>
 			</div>
+			<div type="button" id="reload" class="reloadDouble"></div>
 			<div class="url_box">
 				<input type="text" id="url" />
 			</div>
 		</div>
-		<webview id="webview" src="https://www.naver.com"></webview>
-		<div class="loading">
-			<div class="indicator"></div>
+		<div id="progress">
+			<div id="bar"></div>
 		</div>
+		<webview id="webview" src="https://www.naver.com"></webview>
 	</body>
 </html>

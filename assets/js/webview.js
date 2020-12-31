@@ -4,7 +4,8 @@ const winWidth = window.innerWidth;
 const winHeight = window.innerHeight;
 const winScreenX = window.screenX;
 const winScreenY = window.screenY;
-
+let progress = 0;
+let progress_bar = 0;
 onload = () => {
 	doLayout();
 	sub_window();

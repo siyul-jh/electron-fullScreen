@@ -1,4 +1,4 @@
-const { remote, ipcRenderer, shell } = require('electron');
+const { remote, ipcRenderer, shell, session } = require('electron');
 
 function sub_window() {
 	ipcRenderer.on('url', (event, message) => {
@@ -17,12 +17,36 @@ function getControlsHeight() {
 	}
 	return 0;
 }
+function frame(state) {
+	var elem = document.getElementById('bar');
+	var id = setInterval(bar, 100, state);
+	function bar(state) {
+		if (state == 'ready') {
+			elem.style.animation = 'none';
+			if (progress_bar < 100) {
+				progress_bar++;
+				elem.style.width = progress_bar + '%';
+			}
+			if (progress_bar == 15) {
+				clearTimeout(id);
+			}
+		} else if (state == 'finish') {
+			elem.style.animation = 'load 100ms normal forwards';
+			progress_bar = 100;
+			elem.style.width = progress_bar + '%';
+			clearTimeout(id);
+			setTimeout(() => {
+				document.getElementById('progress').style.zIndex = '0';
+			}, 250);
+		}
+	}
+	// clearInterval();
+}
+
 function setting() {
 	let url = document.querySelector('#url');
 	let webview = document.querySelector('webview');
 	let title = document.querySelector('#title');
-	let loading = document.querySelector('.loading');
-	let indicator = document.querySelector('.indicator');
 
 	document.querySelector('#youtube').addEventListener('click', youtube); // 이벤트 연결
 	document.querySelector('#inflearn').addEventListener('click', inflearn); // 이벤트 연결
@@ -31,21 +55,21 @@ function setting() {
 	document.querySelector('.button-close').addEventListener('click', win_close); // 이벤트 연결
 	document.querySelector('#prev').addEventListener('click', prev); // 이벤트 연결
 	document.querySelector('#next').addEventListener('click', next); // 이벤트 연결
+	document.querySelector('#reload').addEventListener('click', reload); // 이벤트 연결
 	document.querySelector('#url').addEventListener('focus', select); // 이벤트 연결
-	document.querySelector('#url').addEventListener('keyup', url); // 이벤트 연결
-
+	document.querySelector('#url').addEventListener('keydown', urlLink); // 이벤트 연결
 	// webview event
-	document.querySelector('webview').addEventListener('did-start-loading', () => {
+
+	document.querySelector('webview').addEventListener('dom-ready', () => {
+		document.getElementById('progress').style.zIndex = '1';
 		webview.classList.add('blur');
-		loading.classList.add('active');
-		indicator.innerText = 'Loading...';
-	});
-	document.querySelector('webview').addEventListener('did-stop-loading', () => {
-		webview.classList.remove('blur');
-		loading.classList.remove('active');
-		indicator.innerText = '';
-		url.value = webview.src;
-		title.innerHTML = webview.getTitle();
+		url.classList.add('blur');
+		title.classList.add('blur');
+		if (progress == 0) {
+			progress = 1;
+			progress_bar = 0;
+			frame('ready');
+		}
 	});
 	document.querySelector('webview').addEventListener('did-finish-load', () => {
 		if (document.querySelector('webview').canGoForward()) {
@@ -58,6 +82,18 @@ function setting() {
 		} else {
 			document.querySelector('#prev').classList.remove('active');
 		}
+		webview.classList.remove('blur');
+		url.classList.remove('blur');
+		title.classList.remove('blur');
+
+		if (progress != 0) {
+			progress = 0;
+			frame('finish');
+		}
+
+		sessionStorage.setItem('url', webview.src);
+		url.value = webview.src;
+		title.innerHTML = webview.getTitle();
 	});
 	document.querySelector('webview').addEventListener('new-window', async (e) => {
 		e.preventDefault();
@@ -73,6 +109,7 @@ function setting() {
 		document.querySelector('webview').classList.remove('full');
 	});
 }
+
 function youtube() {
 	let youtube = document.querySelector('#youtube').getAttribute('data-url');
 	navigateTo(youtube);
@@ -101,12 +138,18 @@ function prev() {
 function next() {
 	document.querySelector('webview').goForward();
 }
+function reload() {
+	document.querySelector('webview').reloadIgnoringCache();
+}
 function select() {
 	let url = document.querySelector('#url');
 	url.select();
 }
-function url() {
+function urlLink() {
 	let url = document.querySelector('#url');
+	let webview = document.querySelector('webview');
+	let title = document.querySelector('#title');
+	let loading = document.querySelector('.loading');
 	if (event.keyCode == 13) {
 		if (urlCheck(url.value)) {
 			const new_value = url.value.replace(/^(http[s]?:\/\/){0,1}(www\.){0,1}[.]{0,1}/, '');
@@ -114,8 +157,11 @@ function url() {
 		} else {
 			new_url = 'http://google.com/search?q=' + url.value;
 		}
+		webview.classList.add('blur');
+		loading.classList.add('active');
+		url.classList.add('blur');
+		title.classList.add('blur');
 		navigateTo(new_url);
-		url.blur();
 	}
 }
 function urlCheck(value) {

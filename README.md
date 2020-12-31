@@ -16,9 +16,12 @@ Window, Mac 환경은 다르기에 각각 OS에서 Build 해야한다.
     "electron-installer-dmg": "^3.0.0"
 ---
 
-### `Now Version : 1.0.1`
+### `Now Version : 1.0.2`
 
 # Patch Note
+
+1.0.2 : 로딩 변경<br/>
+- 기존 Loading Popup을 Progress Bar로 변경
 
 1.0.1 : 버그 수정<br/>
 - 최소화, 최대화 미작동 수정

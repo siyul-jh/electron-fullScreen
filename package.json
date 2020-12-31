@@ -1,7 +1,7 @@
 {
 	"name": "full-screen",
 	"productName": "Full Screen",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A simple Electron Full Screen application",
 	"main": "main.js",
 	"scripts": {
@@ -22,6 +22,7 @@
 		"electron-installer-dmg": "^3.0.0"
 	},
 	"dependencies": {
+		"electron-extensions": "^7.0.0-beta.3",
 		"electron-packager": "^15.2.0"
 	},
 	"license": "MIT"
